@@ -1,0 +1,71 @@
+body {
+  font-family: 'Archivo', sans-serif;
+  @apply bg-gray-900 h-screen;
+
+  user-select: none;
+}
+
+.letter {
+  display: inline-block;
+}
+.section {
+  &__container {
+    @apply py-10 px-24 mx-auto w-full;
+  }
+  &__header {
+    @apply py-10 px-24 mx-auto w-full;
+
+    & + .section__container {
+      @apply pt-0;
+    }
+  }
+  &__title {
+    @apply text-4xl uppercase font-bold;
+
+    color: var(--team-color-1);
+  }
+}
+
+.slab {
+  font-family: 'Zilla Slab', Georgia, 'Times New Roman', Times, serif;
+}
+
+.teams-nav {
+  &:hover {
+    .nav__item {
+      transition: 0.3s opacity ease-in-out;
+      &:not(:hover) {
+        opacity: 0.5;
+      }
+    }
+  }
+}
+
+.card {
+  @apply bg-white h-full text-center shadow p-4;
+
+  cursor: pointer;
+  background-color: var(--team-color-1);
+
+  .swiper-slide-active & {
+    @apply shadow;
+  }
+}
+
+.page--player {
+  .section:not(.team-header) {
+    @apply bg-gray-900;
+  }
+}
+.page--home {
+  .swiper-slide {
+    transform: scale(0.8);
+  }
+  .swiper-slide-next,
+  .swiper-slide-prev {
+    transform: scale(0.9);
+  }
+  .swiper-slide-active {
+    transform: scale(1);
+  }
+}

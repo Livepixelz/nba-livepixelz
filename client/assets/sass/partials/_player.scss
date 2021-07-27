@@ -1,0 +1,105 @@
+.player {
+  &-picture {
+    @apply relative;
+
+    &--header {
+      img {
+        width: 32rem;
+      }
+    }
+    &__halo {
+      position: absolute !important;
+    }
+    &__bglogo {
+      @apply absolute w-1/2;
+
+      pointer-events: none;
+      opacity: 0.1;
+      transform: translate(10%, -50%);
+      top: 50%;
+      right: 0;
+      mix-blend-mode: luminosity;
+    }
+    &__image {
+      @apply relative w-full;
+
+      filter: drop-shadow(2px 4px 6px black);
+      z-index: 1;
+      height: initial;
+      aspect-ratio: 260/190;
+    }
+
+    &__frame {
+      @apply block;
+    }
+    &__caption {
+      @apply leading-none absolute inset-0 px-16;
+
+      text-shadow: 0 15px 10px rgba(0, 0, 0, 0.25);
+      .player__firstname,
+      .player__lastname {
+        span {
+          @apply px-2;
+
+          background-color: #000;
+        }
+      }
+      .player__jerseynumber {
+        @apply font-bold text-black;
+
+        grid-area: c;
+      }
+    }
+    &.bgnumber {
+      .player__firstname,
+      .player__lastname {
+        z-index: 1;
+      }
+      .player__firstname {
+        bottom: 0;
+      }
+      .player__lastname {
+        bottom: 0;
+      }
+      .player-picture__image {
+        @apply relative;
+
+        z-index: 1;
+      }
+      .player__jerseynumber {
+        color: var(--team-color-2);
+        position: absolute;
+        top: 2rem;
+      }
+      .player__position {
+        color: var(--team-color-1);
+        position: absolute;
+        top: 4rem;
+      }
+    }
+  }
+  &-stats-summary {
+    @apply flex mt-5;
+
+    border-top: 1px solid var(--team-color-2);
+
+    .stat {
+      --color: white;
+      @apply text-center pt-2 pr-2 mr-2;
+
+      color: var(--color);
+      &:not(:last-child) {
+        border-right: 1px solid var(--team-color-2);
+      }
+      &__type {
+        @apply text-4xl;
+      }
+      &__value {
+        @apply text-4xl font-black;
+
+        letter-spacing: -3px;
+        color: var(--team-color-2);
+      }
+    }
+  }
+}

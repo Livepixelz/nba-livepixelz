@@ -1,0 +1,48 @@
+.id {
+  @apply flex content-end gap-x-8 justify-center;
+
+  text-shadow: none;
+  color: currentColor;
+  &__line {
+    @apply flex justify-between uppercase relative w-full;
+
+    font-family: 'Zilla Slab', Georgia, 'Times New Roman', Times, serif;
+    &::before,
+    &::after {
+      @apply absolute;
+
+      content: '';
+    }
+    &::before {
+      @apply h-px w-full absolute;
+
+      background-color: #000;
+      opacity: 0.2;
+      top: 50%;
+      transform: translateY(-50%);
+
+      .player-id & {
+        background-color: #fff;
+        opacity: 0.2;
+      }
+    }
+
+    > * {
+      span {
+        @apply relative;
+      }
+    }
+    dt {
+      @apply uppercase;
+      & > span {
+        @apply pr-3;
+      }
+    }
+    dd {
+      @apply text-right;
+      & > span {
+        @apply pl-3;
+      }
+    }
+  }
+}

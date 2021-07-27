@@ -1,0 +1,132 @@
+.team {
+  &,
+  & * {
+    transition: background-color 0.4s ease-in-out;
+  }
+  @apply h-full;
+
+  &.page--player {
+    background-color: var(--team-color-1);
+  }
+
+  .section:not(.section__header) {
+    border-bottom: 1px solid #000;
+  }
+
+  &.page--team {
+    @apply relative;
+
+    &::after {
+      @apply w-full h-64 bottom-0 inset-x-0 absolute;
+
+      content: '';
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+      opacity: 0.4;
+    }
+  }
+  &-header {
+    @apply text-white leading-none pt-8 pt-24 pb-0 relative overflow-hidden;
+
+    min-height: 40rem;
+    background: radial-gradient(
+      900px 900px at top center,
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0)
+    );
+    border-bottom: 3rem solid #000;
+    //border-bottom: 1rem solid var(--team-color-2);
+    &::before {
+      @apply w-full absolute inset-x-0 top-0;
+
+      content: '';
+      height: 1px;
+      mix-blend-mode: luminosity;
+      //background-color: var(--team-color-3);
+      background: rgba(255, 255, 255, 0.2);
+    }
+    &::after {
+      @apply w-full h-10 absolute inset-x-0 bottom-0;
+
+      content: '';
+      //background-color: var(--team-color-3);
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+    }
+
+    &__brand {
+      z-index: 1;
+    }
+    &__logo {
+      @apply flex justify-center content-center h-40;
+
+      & > img {
+        margin-top: -4rem;
+        width: 20rem;
+        height: 20rem;
+        z-index: 20;
+        transform: translate3d(-20%, -3rem, 0);
+      }
+    }
+  }
+  &-banner {
+    @apply relative;
+
+    z-index: 1;
+    .layer {
+      content: '';
+      left: -100px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: -100px;
+      background-color: var(--team-color-1);
+      transition: background-color 0.5s ease-in-out;
+      z-index: 0;
+    }
+  }
+  &-roster {
+    @apply px-0 mx-auto inset-x-0;
+
+    .player-picture {
+      max-width: 20vw;
+    }
+  }
+  &-card {
+    img {
+      width: 100%;
+      aspect-ratio: 1/1;
+    }
+    h2 {
+      color: #fff;
+
+      span {
+        @apply font-black uppercase;
+      }
+    }
+    p {
+      @apply text-lg;
+
+      color: var(--team-color-2);
+    }
+  }
+  &__city {
+    @apply text-4xl font-bold block uppercase tracking-widest overflow-hidden;
+
+    //text-shadow: 0 25px 20px rgba(0, 0, 0, 0.25);
+    color: var(--team-color-2);
+    font-family: 'Zilla Slab', Georgia, 'Times New Roman', Times, serif;
+  }
+  &__nickname {
+    @apply font-black uppercase flex;
+
+    font-size: 9rem;
+    //text-shadow: 0 25px 20px rgba(0, 0, 0, 0.25);
+    margin-left: -10px;
+  }
+  &__baseline {
+    @apply mb-4 slab;
+
+    .page--player & {
+      // color: var(--team-color-1);
+    }
+  }
+}

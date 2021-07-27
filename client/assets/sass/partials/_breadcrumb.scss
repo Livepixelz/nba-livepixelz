@@ -1,0 +1,16 @@
+.breadcrumb {
+  @apply flex uppercase font-light text-xs mb-3;
+
+  &__item {
+    @apply pr-2 relative;
+
+    a {
+      color: var(--team-color-2);
+    }
+    &:not(:last-child)::after {
+      @apply pl-2 leading-none;
+
+      content: '>';
+    }
+  }
+}

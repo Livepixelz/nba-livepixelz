@@ -1,0 +1,19 @@
+.stats-table {
+  @apply text-gray-800 w-full rounded-2xl overflow-hidden shadow-2xl mb-8;
+
+  color: white;
+  background-color: var(--team-color-1);
+  th,
+  td {
+    @apply p-2 m-1 text-left;
+  }
+  th {
+    background-color: #000;
+  }
+
+  tr:nth-child(odd) {
+    td {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
