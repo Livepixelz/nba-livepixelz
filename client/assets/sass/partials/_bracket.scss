@@ -10,11 +10,20 @@
   }
 }
 .bracket {
-  --link-color: #fff;
-  --link-width: 2px;
+  @apply text-white;
+
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  --link-color: #718096;
+  --link-width: 10px;
   --split-spacing: 2rem;
+  --teambox-spacing: 4px;
+  --teambox-height: 36px;
   --matchup-spacing: 10px;
-  --teambox-spacing: 3px;
+  --matchup-height: calc(var(--teambox-height) * 2);
 
   gap: var(--split-spacing);
   & > .split-one {
@@ -83,6 +92,7 @@
     li.team-box {
       @apply flex-col;
 
+      height: auto;
       width: 50%;
       // opacity: 0.45;
     }
@@ -95,102 +105,52 @@
     gap: var(--split-spacing);
   }
 
-  .matchup {
-    margin: 0;
-    width: 100%;
-    // height: 20%;
-    padding: var(--matchup-spacing) 0;
-    position: relative;
-    transition: all 0.2s;
-
-    &::after {
-      position: absolute;
-      left: 100%;
-      content: '';
-      display: block;
-      width: calc(var(--split-spacing) / 3 + var(--link-width));
-      height: 25%;
-      border-right: var(--link-width) solid var(--link-color);
-      transform: translateX(
-        calc(var(--split-spacing) / 3 - var(--link-width) / 2)
-      );
-    }
-
-    &:nth-child(even) {
-      &::after {
-        bottom: 50%;
-        border-bottom: var(--link-width) solid var(--link-color);
-      }
-    }
-
-    &:nth-child(odd) {
-      &::after {
-        top: 50%;
-        border-top: var(--link-width) solid var(--link-color);
-      }
-    }
-
-    &.championship {
-      display: flex;
-      flex-flow: row;
-      grid-gap: 1rem;
-    }
-  }
-
   .team-box {
     @apply flex flex-row justify-between shadow-xl relative;
 
+    height: var(--teambox-height);
     z-index: 1;
     background-color: var(--team-color-1);
-    margin: var(--teambox-spacing) 0;
 
     &::before,
     &::after {
       position: absolute;
       content: '';
       display: block;
-      height: calc(50% + var(--teambox-spacing) / 2);
-      width: calc(var(--split-spacing) / 3);
+      height: calc(50% + var(--link-width) / 2);
+      width: calc(var(--split-spacing) / 4 + var(--link-width) / 2);
     }
 
     &::after {
       left: 100%;
       border-right: var(--link-width) solid var(--link-color);
-      // transform: translateX(var(--link-width));
     }
 
     &::before {
       right: 100%;
       border-left: var(--link-width) solid var(--link-color);
-      transform: translateX(calc(var(--link-width) / -2));
+      height: calc(50% + var(--matchup-spacing) + var(--link-width));
     }
 
     &:nth-child(odd) {
       &::before {
-        bottom: calc(50% + var(--teambox-spacing) / -2);
+        bottom: calc(50% - var(--link-width) / 2);
         border-bottom: var(--link-width) solid var(--link-color);
       }
       &::after {
-        bottom: calc(var(--teambox-spacing) / -2);
+        bottom: 0;
         border-top: var(--link-width) solid var(--link-color);
       }
     }
 
     &:nth-child(even) {
       &::before {
-        top: calc(50% + var(--teambox-spacing) / -2);
+        top: calc(50% - var(--link-width) / 2);
         border-top: var(--link-width) solid var(--link-color);
       }
       &::after {
-        top: calc(var(--teambox-spacing) / -2);
+        top: 0;
         border-bottom: var(--link-width) solid var(--link-color);
-      }
-    }
-
-    &--loser {
-      filter: grayscale(1);
-      &::after {
-        opacity: 0.25;
       }
     }
 
@@ -261,7 +221,7 @@
       @apply flex-col;
 
       &::before {
-        display: none;
+        // display: none;
       }
       &::after {
         left: 50%;
@@ -271,37 +231,224 @@
       }
     }
   }
-  .round {
-    @apply flex flex-1 flex-col;
 
+  .matchup {
+    @apply flex flex-col justify-center;
+
+    margin: 0;
+    width: 100%;
+    padding: var(--matchup-spacing) 0;
+    position: relative;
+    transition: all 0.2s;
+
+    &.championship .bracket-team::before {
+      @apply absolute h-px bg-white inset-x-0 w-full;
+
+      border: none;
+      z-index: 2;
+      top: 0;
+      opacity: 0.1;
+      content: '';
+      display: block;
+    }
+
+    &-wrapper {
+      @apply flex flex-col justify-center relative;
+
+      &::before,
+      &::after {
+        @apply absolute block;
+
+        content: '';
+        right: calc(100% + var(--split-spacing) / 4 - var(--link-width) / 2);
+        width: calc(var(--split-spacing) / 2 + var(--link-width));
+        height: calc(
+          50% + var(--link-width) / 2 - var(--matchup-height) / 4 +
+            var(--link-width) / 2
+        );
+        border-right: var(--link-width) solid var(--link-color);
+      }
+
+      &::before {
+        top: calc(var(--link-width) / -2);
+      }
+
+      &::after {
+        bottom: calc(var(--link-width) / -2);
+      }
+    }
+
+    &:not(.championship)::before {
+      @apply absolute h-px bg-white inset-x-0;
+
+      z-index: 2;
+      top: var(--matchup-spacing);
+      opacity: 0.1;
+      content: '';
+      display: block;
+    }
+
+    &::after {
+      position: absolute;
+      left: 100%;
+      content: '';
+      display: block;
+      width: calc(var(--split-spacing) / 2 + var(--link-width));
+      // height: calc(50% - var(--matchup-spacing) + var(--link-width) / 2);
+      border-right: var(--link-width) solid var(--link-color);
+    }
+
+    &:nth-child(even) {
+      &::after {
+        bottom: calc(50% - var(--matchup-spacing) / 2);
+        border-bottom: var(--link-width) solid var(--link-color);
+        transform: translate(
+          calc(var(--split-spacing) / 4 - var(--link-width) / 2),
+          calc(var(--matchup-spacing) / 2)
+        );
+      }
+    }
+
+    &:nth-child(odd) {
+      &::after {
+        border-top: var(--link-width) solid var(--link-color);
+        transform: translate(
+          calc(var(--split-spacing) / 4 - var(--link-width) / 2),
+          0
+        );
+      }
+    }
+
+    &.championship {
+      display: flex;
+      flex-flow: row;
+      grid-gap: 1rem;
+    }
+  }
+
+  .final {
+    display: flex;
+    flex-flow: column;
     li {
       color: #fff;
     }
 
-    &.round-one .matchup {
-      margin: 0;
+    .matchup {
+      &::before,
+      &::after {
+        border-top: var(--link-width) solid var(--link-color);
+        bottom: calc(100% - var(--matchup-spacing));
+        top: auto;
+        height: calc(var(--split-spacing) + var(--matchup-spacing));
+        width: calc(25%);
+      }
+      &::before {
+        right: calc(50% + var(--split-spacing) / 2 + 0.5rem);
+        position: absolute;
+        content: '';
+        display: block;
+        border-right: none;
+        border-left: var(--link-width) solid var(--link-color);
+        transform: translateX(calc(var(--split-spacing) / 2));
+      }
+      &::after {
+        left: calc(50% + var(--split-spacing) / 2 + 0.5rem);
+        transform: translateX(calc(var(--split-spacing) / -2));
+      }
+    }
+    .team-box {
+      &__logo img {
+        width: 50%;
+      }
+      &::before {
+        display: none;
+      }
+
+      &:first-child::after,
+      &:last-child::after {
+        bottom: calc(100% + var(--split-spacing) + var(--matchup-spacing));
+        border-top: none;
+        border-bottom: none;
+        top: auto;
+        height: 1rem;
+      }
+      &:first-child::after {
+        border-left: none;
+        border-right: var(--link-width) solid var(--link-color);
+        left: auto;
+        right: 0;
+      }
+      &:last-child::after {
+        border-right: none;
+        right: auto;
+        border-left: var(--link-width) solid var(--link-color);
+        left: 0;
+      }
+    }
+  }
+
+  .round {
+    @apply flex flex-1 flex-col;
+
+    .round-matchups {
+      @apply flex flex-col flex-1 justify-around;
     }
 
-    &.round-two {
+    &:last-child {
       .matchup {
-        margin: 0;
-
         &::after {
-          height: 70%;
+          height: 0;
+          width: calc(var(--split-spacing) / 2 + var(--link-width) * 2);
         }
       }
     }
 
+    &.round-one {
+      .matchup-wrapper {
+        height: 25%;
+      }
+    }
+
+    &.round-two {
+      .matchup-wrapper {
+        height: 25%;
+      }
+    }
+
     &.round-three {
+      .matchup-wrapper {
+        height: 50%;
+      }
+    }
+
+    .team-box:--loser {
+      // filter: grayscale(1);
+      &::after {
+        opacity: 0.25;
+      }
+    }
+
+    &:nth-child(even) {
       .matchup {
-        margin: 0;
+        width: 100%;
+        padding: var(--matchup-spacing) 0;
+        position: relative;
+        transition: all 0.2s;
+
         &::after {
-          height: 0;
-          width: calc(var(--split-spacing) / 2 + var(--link-width) * 2);
-          transform: translate(
-            calc(var(--split-spacing) / 3 - var(--link-width) / 2),
-            calc(var(--link-width) * -1)
-          );
+          position: absolute;
+          left: 100%;
+          content: '';
+          display: block;
+          width: calc(var(--split-spacing) / 2 + var(--link-width));
+          border-right: var(--link-width) solid var(--link-color);
+        }
+
+        &:nth-child(even) {
+          &::after {
+            bottom: calc(50% + var(--matchup-spacing) * 1 - var(--link-width));
+            border-bottom: var(--link-width) solid var(--link-color);
+          }
         }
       }
     }
@@ -362,42 +509,7 @@
     text-align: center;
     margin: 60px auto;
   }
-  .bracket-finals.final {
-    display: flex;
-    flex-flow: column;
-    li {
-      color: #fff;
-    }
-    .matchup {
-      &::before,
-      &::after {
-        border-top: var(--link-width) solid var(--link-color);
-        bottom: calc(100% - var(--matchup-spacing));
-        top: auto;
-        height: calc(var(--split-spacing) - var(--matchup-spacing));
-        width: calc(25%);
-      }
-      &::before {
-        right: calc(50% + var(--split-spacing) / 2);
-        position: absolute;
-        content: '';
-        display: block;
-        border-right: none;
-        border-left: var(--link-width) solid var(--link-color);
-        transform: translateX(calc(var(--split-spacing) / 2));
-      }
-      &::after {
-        left: calc(50% + var(--split-spacing) / 2);
-        transform: translateX(calc(var(--split-spacing) / -2));
-      }
-    }
-    .team-box {
-      &::before,
-      &::after {
-        display: none;
-      }
-    }
-  }
+
   .date {
     font-size: 10px;
     letter-spacing: var(--link-width);
@@ -409,7 +521,6 @@
 
     .split {
       width: 100%;
-      border-bottom: 1px solid #b6b6b6;
     }
 
     .split-two {
@@ -422,10 +533,19 @@
       }
     }
     .champion {
-      width: 100%;
+      margin: 0;
       order: -1;
     }
-    .team-box__logo img,
+
+    .final .team-box__logo {
+      flex-flow: column;
+      align-items: center;
+      img {
+        width: 25%;
+      }
+    }
+
+    .matchup:not(.championship) .team-box__logo img,
     .team-box__city,
     .team-box__nickname {
       display: none;
@@ -433,6 +553,11 @@
   }
 
   @media screen and (min-width: 980px) {
+    .team-box {
+      --teambox-height: 72px;
+
+      height: var(--teambox-height);
+    }
     .champion {
       @apply flex flex-col h-full;
       & > * {
@@ -446,47 +571,56 @@
       display: none;
     }
 
-    .round {
-      &.round-two {
-        .team-box::before {
-          height: 5vh;
-        }
-      }
+    .matchup-wrapper {
+      @apply flex flex-col justify-center relative;
 
-      &.round-three {
-        .team-box::before {
-          height: 10vh;
-        }
+      &::before,
+      &::after {
+        @apply absolute block;
+
+        content: '';
+        right: calc(100% + var(--split-spacing) / 4 - var(--link-width) / 2);
+        width: calc(var(--split-spacing) / 2 + var(--link-width));
+        height: calc(
+          50% + var(--link-width) / 2 - var(--matchup-spacing) * 2 -
+            var(--matchup-height) / 4 + var(--link-width) / 2
+        );
+        border-right: var(--link-width) solid var(--link-color);
       }
     }
 
     .split.split-two {
       .matchup {
+        &-wrapper {
+          &::before,
+          &::after {
+            right: auto;
+            left: calc(100% + var(--split-spacing) / 4 - var(--link-width) / 2);
+            border-right: none;
+            border-left: var(--link-width) solid var(--link-color);
+          }
+        }
         &::after {
           position: absolute;
           left: auto;
-          right: 100%;
+          right: calc(100% + var(--split-spacing) / 4 - var(--link-width) / 2);
+          transform: translate(0, 0);
           content: '';
           display: block;
-          width: calc(var(--split-spacing) / 3 + var(--link-width) * 2);
-          height: 25%;
           border-right: none;
           border-left: var(--link-width) solid var(--link-color);
-          transform: translateX(
-            calc((var(--split-spacing) / 3 - var(--link-width)) * -1)
-          );
         }
 
         &:nth-child(even) {
           &::after {
             bottom: 50%;
+            transform: translate(0, calc(var(--link-width) / 2));
             border-bottom: var(--link-width) solid var(--link-color);
           }
         }
 
         &:nth-child(odd) {
           &::after {
-            top: 50%;
             border-top: var(--link-width) solid var(--link-color);
           }
         }
@@ -499,14 +633,12 @@
           left: 100%;
           border-left: none;
           border-right: var(--link-width) solid var(--link-color);
-          transform: translateX(0);
         }
         &::after {
           left: auto;
           right: 100%;
           border-right: none;
           border-left: var(--link-width) solid var(--link-color);
-          // transform: translateX(calc(var(--link-width) / -2));
         }
         &__name {
           @apply pl-3;
@@ -514,16 +646,6 @@
       }
 
       .round {
-        &.round-two {
-          .matchup {
-            margin: 0;
-
-            &::after {
-              height: 70%;
-            }
-          }
-        }
-
         &.round-three {
           .matchup {
             margin: 0;
@@ -531,10 +653,6 @@
             &::after {
               height: 0;
               width: calc(var(--split-spacing) / 2 + var(--link-width) * 2);
-              transform: translate(
-                calc((var(--split-spacing) / 3 - var(--link-width) / 2) * -1),
-                calc(var(--link-width) * -1)
-              );
             }
           }
         }
@@ -550,7 +668,7 @@
         @apply m-0;
       }
       .spacer {
-        @apply flex flex-1;
+        @apply flex flex-1 justify-center;
       }
     }
 
@@ -576,7 +694,10 @@
 
   @media screen and (min-width: 1600px) {
     .team-box__name {
-      @apply flex pl-0;
+      @apply flex;
+    }
+    .round .team-box__name {
+      @apply pl-0;
     }
   }
 }

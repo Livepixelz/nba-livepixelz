@@ -4,7 +4,7 @@
       <div class="round-details">
         {{ getRoundName(i) }}
       </div>
-      <div class="round-matchups flex flex-col flex-1 justify-around">
+      <div class="round-matchups">
         <bracket-matchup
           v-for="(matchup, j) in round.games"
           :key="j"

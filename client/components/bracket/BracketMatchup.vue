@@ -1,8 +1,10 @@
 <template>
-  <ul class="matchup">
-    <bracket-team :team="matchup.player1" />
-    <bracket-team :team="matchup.player2" />
-  </ul>
+  <div class="matchup-wrapper">
+    <ul class="matchup">
+      <bracket-team :team="matchup.player1" />
+      <bracket-team :team="matchup.player2" />
+    </ul>
+  </div>
 </template>
 <script>
 export default {

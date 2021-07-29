@@ -7,7 +7,22 @@
         <div class="champion">
           <bracket-champions :champions="champions" />
           <bracket-finals :finals="finals" />
-          <div class="spacer"></div>
+          <div class="spacer">
+            <h1
+              class="
+                text-2xl
+                xl:text-4xl
+                font-bold
+                text-white
+                uppercase
+                mb-2
+                xl:mb-8
+              "
+            >
+              NBA PLAYOFFS <br />
+              <span class="text-2xl">2021</span>
+            </h1>
+          </div>
         </div>
 
         <bracket-split :rounds="rounds.east" class="split-two" />

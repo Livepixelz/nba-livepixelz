@@ -1,8 +1,7 @@
 <template>
   <div class="bracket-finals final">
-    <i class="fa fa-trophy"></i>
     <div class="round-details">Finals</div>
-    <div class="round-matchups flex flex-col flex-1 justify-around">
+    <div class="round-matchups flex flex-col flex-1 justify-around pt-10">
       <ul class="matchup championship">
         <bracket-team :team="finals.player1" />
         <bracket-team :team="finals.player2" />

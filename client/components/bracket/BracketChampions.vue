@@ -1,10 +1,5 @@
 <template>
   <header class="bracket-champions bracket-header">
-    <h1
-      class="text-2xl xl:text-4xl font-bold text-white uppercase mb-2 xl:mb-8"
-    >
-      NBA PLAYOFFS
-    </h1>
     <div class="champions">
       <div class="champions-header">
         <team-logo
