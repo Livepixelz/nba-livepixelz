@@ -2,6 +2,7 @@ body {
   font-family: 'Archivo', sans-serif;
   @apply bg-gray-900 h-screen;
 
+  font-size: calc(14px + (26 - 14) * ((100vw - 300px) / (1600 - 300)));
   user-select: none;
 }
 
@@ -10,7 +11,11 @@ body {
 }
 .section {
   &__container {
-    @apply py-10 px-24 mx-auto w-full;
+    @apply py-10 px-10 mx-auto w-full;
+
+    @media screen and (max-width: 720px) {
+      @apply px-8;
+    }
   }
   &__header {
     @apply py-10 px-24 mx-auto w-full;
@@ -38,6 +43,9 @@ body {
         opacity: 0.5;
       }
     }
+  }
+  @media screen and (max-width: 375px) {
+    display: none;
   }
 }
 

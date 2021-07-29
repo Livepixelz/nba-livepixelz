@@ -66,5 +66,10 @@ export default {
         },
       })
     },
+    postcss: {
+      plugins: {
+        'flex-gap-polyfill': {},
+      },
+    },
   },
 }

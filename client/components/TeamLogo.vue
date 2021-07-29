@@ -2,8 +2,8 @@
   <img
     svg-inline
     :src="`/icons/logos/teams/${teamAbbr}.svg`"
-    width="240"
-    height="240"
+    :width="size"
+    :height="size"
   />
 </template>
 <script>
@@ -12,6 +12,10 @@ export default {
     teamAbbr: {
       type: String,
       required: true,
+    },
+    size: {
+      type: Number,
+      default: 240,
     },
   },
 }

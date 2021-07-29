@@ -23,6 +23,11 @@
     &__image {
       @apply relative w-full;
 
+      .page--player & {
+        width: 170%;
+        margin-top: -100px;
+      }
+
       filter: drop-shadow(2px 4px 6px black);
       z-index: 1;
       height: initial;
